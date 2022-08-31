@@ -30,7 +30,7 @@ ade= (p/1000)*24*3600
 def publish_it():
   #call this function every 5 seconds
   threading.Timer(60.0, publish_it).start()
-  for j in range(90):
+  for j in range(1):
    for i in range(24):
       data =json.dumps({
           'voltage': v,
@@ -49,8 +49,9 @@ def publish_it():
 time.sleep(30)
 
 #run the publish_it function {
+client.loop_start()
 publish_it()
 
-client.loop_forever()
+client.loop_stop()
   
 
