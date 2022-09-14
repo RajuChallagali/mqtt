@@ -49,9 +49,9 @@ def on_message(client, userdata, msg):
     #grouping data based on given time period
     df.groupby([pd.Grouper(freq='2H', key='Time')]).sum()['Current Hour Energy']
     print (df)
-    df1=df['Current Hour Energy'].sum()
+    df1=df['Current Hour Energy'].max()
     print (df1)
-    df2=df['Current Hour Energy'].min()
+    df2=df['Current Hour Energy'].mean()
     print(df2)
     data=df.to_dict()
     #result=firebase.post('/data/hourly bins', data)
