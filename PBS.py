@@ -54,7 +54,7 @@ def on_message(client, userdata, msg):
     df2=df['Current Hour Energy'].mean()
     print(df2)
     data=df.to_dict()
-    #result=firebase.post('/data/hourly bins', data)
+    result=firebase.post('/data/hourly bins', data)
     
   
 client=mqtt.Client()
