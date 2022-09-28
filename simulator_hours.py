@@ -4,6 +4,7 @@ import json
 import random
 import datetime
 import threading
+import pandas as pd
 from firebase import firebase  
 firebase = firebase.FirebaseApplication('https://smart-29944-default-rtdb.firebaseio.com/', None)  
 
@@ -27,13 +28,31 @@ def on_message(client, userdata, msg):
             }
      
     result=firebase.post('/data/readings',data)
-    print(result)
+    #print(result)
 
     energy={
-            'Current Hour Energy': message['Current Hour Energy'],
-          'All Day Energy': message['All Day Energy']}
+            'current_hour_energy': message['Current Hour Energy'],
+          'all_energy': message['All Day Energy'],
+            'Time': message['Time']}
     result=firebase.post('/data/energy', energy)
-    print(result)
+    #print(result)
+
+    
+
+    '''kwh= {'Current Hour Energy': message['Current Hour Energy'],
+        'Time': message['Time']
+        }
+    kwh= {k:[v] for k,v in kwh.items()}'''
+    df1=df= pd.DataFrame(message, index=[0])
+    df2=df.append(df1)
+    data=df1.update(df2)
+    data['Time'] = pd.to_datetime(data['Time'])
+    #data.set_index(data['Time'], inplace= True)
+    print(data)
+    #df.groupby([pd.Grouper(freq='30min', key='Time'), 'Current Hour Energy']).sum()
+    #print (df)
+    #data=df.to_dict()
+    #result=firebase.post('/data/hourly bins', data)
   
 client=mqtt.Client()
 client.on_connect = on_connect

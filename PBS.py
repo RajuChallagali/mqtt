@@ -42,9 +42,9 @@ def on_message(client, userdata, msg):
     kwh= {'Current Hour Energy': message['Current Hour Energy'],
         'Time': message['Time']
         }
-    #kwh= {k:[v] for k,v in kwh.items()}
+    kwh= {k:[v] for k,v in kwh.items()}
     #converting data into dataframe
-    df= pd.DataFrame.from_dict(kwh, orient="index")
+    df= pd.DataFrame(kwh)
     df['Time'] = pd.to_datetime(df['Time'])
     #grouping data based on given time period
     df.groupby([pd.Grouper(freq='2H', key='Time')]).sum()['Current Hour Energy']
