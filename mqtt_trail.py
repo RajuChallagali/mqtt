@@ -74,14 +74,14 @@ def on_message(client, userdata, msg):
         #it is default message id 1018,for message id 1018, we have created a folder in readings/1018 
         print(result) 
 
-    msg=message['data']
-    df1=df= pd.DataFrame(msg, index= [0])
+    #msg=message['data']
+    """df1=df= pd.DataFrame(msg, index= [0])
     df2=df.append(df1)
     df2['timestamp']=s=message['data']['timestamp']
     dt=datetime.fromisoformat(s)
     dt1 = pd.to_datetime(dt, errors='coerce')
     df2.set_index(dt1)
-    print(df2)
+    print(df2)"""
 
 client = mqtt.Client()
 client.on_connect = on_connect
